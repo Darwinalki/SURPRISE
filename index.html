@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Épreuve</title>
+<style>
+body {margin:0;background:#0f0f0f;color:white;font-family:Arial;text-align:center;overflow:hidden;}
+#container{margin-top:40px;}
+img{max-width:80%;border-radius:12px;box-shadow:0 0 20px rgba(255,255,255,0.2);}
+#btnSuivant{position:absolute;padding:15px 30px;font-size:18px;border:none;border-radius:10px;background:#ff4d6d;color:white;cursor:pointer;}
+#messageMobile{display:none;font-size:22px;margin-top:100px;}
+</style>
+</head>
+<body>
+
+<div id="container">
+<h1>Épreuve 1</h1>
+<p>Résous l’énigme pour continuer…</p>
+<img src="enigme.jpg">
+</div>
+
+<button id="btnSuivant">Suivant</button>
+
+<div id="messageMobile">
+Il faut que tu utilises un ordinateur mon bb 💻❤️
+</div>
+
+<script>
+const btn=document.getElementById("btnSuivant");
+let unlocked=false;
+
+if (/Mobi|Android|iPhone/i.test(navigator.userAgent)){
+document.body.innerHTML=document.getElementById("messageMobile").outerHTML;
+}
+
+btn.style.top="70%";
+btn.style.left="45%";
+
+document.addEventListener("mousemove",function(e){
+if(unlocked)return;
+const rect=btn.getBoundingClientRect();
+const distance=Math.hypot(e.clientX-rect.left,e.clientY-rect.top);
+if(distance<120){
+btn.style.left=Math.random()*(window.innerWidth-100)+"px";
+btn.style.top=Math.random()*(window.innerHeight-50)+"px";
+}
+});
+
+const keysPressed={};
+document.addEventListener("keydown",(e)=>{
+keysPressed[e.key.toLowerCase()]=true;
+if(keysPressed["o"]&&keysPressed["v"]&&keysPressed["a"]){
+unlocked=true;
+btn.style.background="#4CAF50";
+btn.innerText="Tu m’as eue 😏 Clique";
+}
+});
+document.addEventListener("keyup",(e)=>{delete keysPressed[e.key.toLowerCase()];});
+
+btn.addEventListener("click",()=>{if(unlocked){window.location.href="etape2.html";}});
+</script>
+
+</body>
+</html>
