@@ -114,9 +114,13 @@ alert("Mauvaise réponse 💔");
 
 btn.addEventListener("click",()=>{
 if(unlocked){
-window.location.href="surprise.pdf";
+const a=document.createElement("a");
+a.href="surprise.pdf";
+a.download="Surprise.pdf";
+a.click();
 }
 });
+
 
 
 </body>
